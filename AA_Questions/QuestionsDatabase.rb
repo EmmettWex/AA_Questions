@@ -1,10 +1,12 @@
 require 'sqlite3'
 require 'singleton'
 
-class QuestionsDatabase < SQLite3::Databaase
-    include singleton
+class QuestionsDatabase < SQLite3::Database
+    include Singleton
 
     def initialize
-        super('import_db.sql')
+        super('questions.db')
+        self.type_translation = true
+        self.results_as_hash = true
     end
 end
