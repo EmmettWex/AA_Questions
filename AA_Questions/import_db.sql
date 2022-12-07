@@ -10,7 +10,7 @@ CREATE TABLE users (
 CREATE TABLE questions (
     id INTEGER PRIMARY KEY,
     title VARCHAR(255),
-    body VARCHAR(255),
+    body TEXT,
     author_id INTEGER,
     FOREIGN KEY(author_id) REFERENCES users(id)
 );
@@ -39,3 +39,18 @@ CREATE TABLE question_likes (
     FOREIGN KEY(user_id) REFERENCES users(id),
     FOREIGN KEY(quesion_id) REFERENCES questions(id)
 );
+
+INSERT INTO users(fname, lname)
+VALUES("Emmett", "Wechsler");
+
+INSERT INTO questions(title, body, author_id)
+VALUES ("Angry", "Why isn't this working!!!1!", 1);
+
+INSERT INTO question_follows(quesion_id, user_id)
+VALUES(1,1);
+
+INSERT INTO replies(question_id, parent_reply, user_id, body)
+VALUES(1, null, 1, "PLEASE HELP!!!");
+
+INSERT INTO question_likes(user_id, question_id)
+VALUES(1,1);
