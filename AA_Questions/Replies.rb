@@ -1,12 +1,12 @@
 require_relative 'QuestionsDatabase'
 
-class Questions
+class Replies
 
-    attr_accessor :id, :title, :body, :author_id
+    attr_accessor :id, :question_id, :parent_reply_id, :user_id, :body
 
     def self.all
-        data = QuestionsDatabase.instance.execute("SELECT * FROM questions")
-        data.map { |datum| Questions.new(datum) }
+        data = QuestionsDatabase.instance.execute("SELECT * FROM replies")
+        data.map { |datum| Replies.new(datum) }
     end
 
 
@@ -18,19 +18,21 @@ class Questions
         SELECT
           *
         FROM
-          questions
+          replies
         WHERE
           id = ?
         SQL
-            # "SELECT * FROM questions WHERE id = #{id}")
-        Questions.new(data[0])
+            # "SELECT * FROM replies WHERE id = #{id}")
+        Replies.new(data[0])
     end
 
     def initialize(options)
         @id = options['id']
-        @title = options['title']
+        @question_id = options['question_id']
+        @parent_reply_id = options['parent_reply_id']
+        @user_id = options['user_id']
         @body = options['body']
-        @author_id = options['author_id']
     end
 
+    
 end
