@@ -1,5 +1,7 @@
 require_relative 'QuestionsDatabase'
-
+require_relative 'Questions'
+require_relative 'Replies'
+require_relative 'QuestionFollow'
 class Users
 
     attr_accessor :id, :fname, :lname
@@ -45,5 +47,15 @@ class Users
         @lname = options['lname']
     end
 
-    
+    def authored_questions
+        Questions.find_by_author_id(@id)
+    end
+
+    def authored_replies
+        Replies.find_by_user_id(@id)
+    end
+
+    def followed_questions
+        QuestionFollow.followed_questions_for_user_id(@id)
+    end
 end
